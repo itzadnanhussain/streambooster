@@ -1,0 +1,2 @@
+[31-Dec-2020 23:49:56 America/Boise] PHP Fatal error:  Allowed memory size of 268435456 bytes exhausted (tried to allocate 132136960 bytes) in /home4/instapg4/public_html/streamviewer/system/core/Exceptions.php on line 271
+[31-Dec-2020 23:53:08 America/Boise] PHP Fatal error:  Allowed memory size of 268435456 bytes exhausted (tried to allocate 132136960 bytes) in /home4/instapg4/public_html/streamviewer/system/core/Exceptions.php on line 271
