@@ -30,27 +30,27 @@ class Dashboard extends CI_Controller
         }
 
         $data = array();
-        $data['level_box']='active';
+        $data['level_box'] = 'active';
         ThemeView($page, $data, $title);
     }
 
-public function ViewAds()
- {
+    public function ViewAds()
+    {
 
         $title = 'Dashboard';
         $page = "dashboard/watchads";
         $data = array();
-          $data['records'] = getByWhere('video_ads');
+        $data['records'] = getByWhere('video_ads');
         ThemeView($page, $data, $title);
     }
-public function AdAction()
- {
+    public function AdAction()
+    {
 
-        
+
         $getrecords = getByWhere('users', '*', array('id' => $_SESSION['user_info']['id']));
         $coins = $getrecords[0]->coins;
         $coins = $coins + 100;
-        updateByWhere('users', array('coins' => $coins), array('id' => $_SESSION['user_info']['id'])); 
+        updateByWhere('users', array('coins' => $coins), array('id' => $_SESSION['user_info']['id']));
         $_SESSION['user_info']['coins'] = $coins;
         $this->PurchasePage();
     }
@@ -104,7 +104,7 @@ public function AdAction()
 
             ///generate random key 
             $data['promo_name'] = $ranks;
-            $data['coins'] = $invested_coins; 
+            $data['coins'] = $invested_coins;
             $data['status'] = 'active';
 
 
@@ -156,22 +156,19 @@ public function AdAction()
                 for ($i = 0; $i < count($findData); $i++) {
 
                     if ($findData[$i]->promo_name == 'Displayed ON Follows Page') {
-                        $_SESSION['promo_for_follows_page']='active';
-                        $_SESSION['coins_for_follows_page']=$findData[$i]->coins;
+                        $_SESSION['promo_for_follows_page'] = 'active';
+                        $_SESSION['coins_for_follows_page'] = $findData[$i]->coins;
                     }
 
                     if ($findData[$i]->promo_name == 'Displayed ON Watch Page') {
-                        $_SESSION['promo_for_watch_page']='active';
-                        $_SESSION['coins_for_watch_page']=$findData[$i]->coins;
-
+                        $_SESSION['promo_for_watch_page'] = 'active';
+                        $_SESSION['coins_for_watch_page'] = $findData[$i]->coins;
                     }
                 }
+            } else {
+                $_SESSION['no_promo'] = 'active';
             }
-            else
-            {
-                $_SESSION['no_promo']='active';
-            }
-            $data['level_box']='active';
+            $data['level_box'] = 'active';
             ThemeView($page, $data, $title);
         }
     }
@@ -219,9 +216,8 @@ public function AdAction()
             $ranks = getByWhere('broadcast_rating', '*', array('user_id' => $records[0]->id));
             if (isset($ranks) && !empty($ranks)) {
                 $data['ranks'] = $ranks;
-
             }
-           
+
 
             $data['records'] = $records;
             // echo '<pre>';
@@ -300,7 +296,7 @@ public function AdAction()
 
         $title = 'Follows Page';
         $page = "dashboard/follows";
-        $data['level_box']='active';
+        $data['level_box'] = 'active';
         ThemeView($page, $data, $title);
     }
 
@@ -311,7 +307,7 @@ public function AdAction()
         $title = 'Partner Page';
         $page = "dashboard/partner";
         $data = array();
-        $data['level_box']='active';
+        $data['level_box'] = 'active';
         ThemeView($page, $data, $title);
     }
 
@@ -346,9 +342,9 @@ public function AdAction()
         } else {
             $title = 'Settings Page';
             $page = "dashboard/setting";
-            $data=array();
+            $data = array();
             $data['userList'] = getByWhere('users', '*', array('id !=' => $_SESSION['user_info']['id']));
-            $data['level_box']='active';
+            $data['level_box'] = 'active';
             ThemeView($page, $data, $title);
         }
     }
@@ -360,7 +356,7 @@ public function AdAction()
         $title = 'Purchase Page';
         $page = "dashboard/purchase";
         $data = array();
-        $data['level_box']='active'; 
+        $data['level_box'] = 'active';
         ThemeView($page, $data, $title);
     }
 
@@ -428,8 +424,6 @@ public function AdAction()
                     echo json_encode($data);
                     die;
                 }
-
-                
             } else {
 
                 ///credential not correct
@@ -463,7 +457,7 @@ public function AdAction()
 
             // Get product data from the database
             $product = $this->product->getRows($rank_id);
-            
+
 
 
             // Retrieve stripe token, card and user info from the submitted form data
@@ -531,6 +525,8 @@ public function AdAction()
             }
         } else {
 
+            
+
             //$this->load->library('stripe_lib');
             $title = 'Purchase Products Page';
             $page = "dashboard/paypalProducts";
@@ -593,8 +589,8 @@ public function AdAction()
             $data['comments'] = getByWhere('comments', '*', array('comment_to' => $data['records'][0]->id, 'status' => 'active'));
             if (isset($data['comments']) && !empty($data['comments'])) {
                 $data['count'] = count($data['comments']);
-            } 
-            $data['level_box']='active';  
+            }
+            $data['level_box'] = 'active';
             ThemeView($page, $data, $title);
         }
     }
@@ -687,10 +683,8 @@ public function AdAction()
 
         $title = 'Profile Page';
         $page = "dashboard/user_level";
-        $data['level_box']='active';  
+        $data['level_box'] = 'active';
         ThemeView($page, $data, $title);
-
-
     }
 
 

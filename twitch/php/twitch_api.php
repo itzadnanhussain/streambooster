@@ -443,7 +443,7 @@ class eciTwitchApi
 
 			CURLOPT_URL => $params['endpoint'], // endpoint
 
-		//	CURLOPT_CAINFO => PATH_TO_CERT, // ssl certificate
+			CURLOPT_CAINFO => PATH_TO_CERT, // ssl certificate
 
 			CURLOPT_RETURNTRANSFER => TRUE, // return stuff!
 

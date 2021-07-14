@@ -14,7 +14,8 @@
                     <!---Invest Coins For Getting Top Streams On The List--->
                     <link rel="stylesheet" href="<?php echo base_url('assets/css/stripestyle.css') ?>">
                     <div class="row">
-                        <div class="col-md-6 offset-md-3">
+                        <!-- one time payment -->
+                        <div class="col-md-6">
                             <div class="panel">
 
                                 <div class="panel-body">
@@ -100,6 +101,23 @@
 
 
                         </div>
+
+                        <!-- subscription code  -->
+                        <div class="col-md-6">
+                            <div class="panel">
+
+                                <div class="panel-body">
+
+                                    <!-- Display errors returned by createToken -->
+                                    <div class="card-errors"></div>
+                                   <?php $this->load->view('templates/subscription') ?>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
                     </div>
                 </div>
 
@@ -112,46 +130,7 @@
     </div>
 
 </div>
-<!-- <script>
-    $('.submit-paypal-form').submit(function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        let url = $('.submit-paypal-form').attr('action');
-        alert(url);
-        let form = $(this).serialize(); 
-        $.ajax({
-            type: 'POST', 
-            url: url,
-            data: form,
-            dataType: 'html',
-            success: function(data) {
-                let res = JSON.parse(data);
-                switch (res.code) {
-                    case 'success':
-                        showSuccessToast(res.message);
-                        setTimeout(function() {
-                            window.location.reload();
-                        }, 3500)
-                        break;
-                    case 'warning':
-                        showWarningToast(res.message);
-                        break;
-                    case 'error':
-                        res.message.forEach(function(error) {
-                            $('[name=' + error[0] + ']').parent().append('<span>' + error[1] + '</span>');
-                        })
-                        break;
-                }
-            }
-        });
-    })
-</script> -->
+ 
 
-<script>
-    ///getcharges
-    function getcharges(value) {
-        let coins = value;
-        let total_charges = coins / 20;
-        $('.charges').val(total_charges); 
-    }
-</script>
+ 
+ 

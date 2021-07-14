@@ -23,8 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-//$config['base_url'] = 'http://localhost/webmark/streambooster/';
-$config['base_url'] = 'https://instantscrapcarremoval.com/streamviewer/';
+$config['base_url'] = 'http://localhost/webmark/streambooster/';
+// $config['base_url'] = 'https://instantscrapcarremoval.com/streamviewer/';
 
 /*
 |--------------------------------------------------------------------------

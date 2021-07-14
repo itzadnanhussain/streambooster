@@ -2,9 +2,9 @@
 
 // define db creds
 define('DB_HOST', 'localhost'); // database host
-define('DB_NAME', 'instapg4_streemviewer'); // database name
-define('DB_USER', 'instapg4_usman'); // database username
-define('DB_PASS', 'Maani@711812'); // database password
+define('DB_NAME', 'streambooster'); // database name
+define('DB_USER', 'root'); // database username
+define('DB_PASS', '123456'); // database password
 
 
  
@@ -13,15 +13,18 @@ define('DB_PASS', 'Maani@711812'); // database password
 define( 'PATH_TO_CERT', FCPATH.'twitch\curl\cacert.pem' );
 //define( 'PATH_TO_CERT', 'http://localhost/streambooster/third_party/twitch-api/curl/cacert.pem' );
 //define( 'PATH_TO_CERT', 'E:\xampp\htdocs\secret\cacert.pem' );
-// twitch creds
-// define('TWITCH_CLIENT_ID', 'sp5btcryk6rfd3rq2zlcm52o6x0slu');
-// define('TWITCH_CLIENT_SECRET', 'g9wrso6pq4xjt6qugfpcz5gj74o6y9');
-// define('TWITCH_REDIRECT_URI', 'http://localhost/streambooster/login/user');
+ 
+
+///for live server
+// define('TWITCH_CLIENT_ID', 'us3vpywudnrnfpyri061w26qe0q8oq');
+// define('TWITCH_CLIENT_SECRET', 'eur8vpobe3boevzz27je218q66sfyh');
+// define('TWITCH_REDIRECT_URI', 'https://instantscrapcarremoval.com/streamviewer/user/auth');
 
 
-define('TWITCH_CLIENT_ID', 'us3vpywudnrnfpyri061w26qe0q8oq');
-define('TWITCH_CLIENT_SECRET', 'eur8vpobe3boevzz27je218q66sfyh');
-define('TWITCH_REDIRECT_URI', 'https://instantscrapcarremoval.com/streamviewer/user/auth');
+///for local server
+define('TWITCH_CLIENT_ID', 'db5n07nl7eer89zellv3chtbihdc3p');
+define('TWITCH_CLIENT_SECRET', 'aop6gwe195usjyksau54vb06v1q84k');
+define('TWITCH_REDIRECT_URI', 'http://localhost/webmark/streambooster/user/auth');
 
 
 
@@ -30,8 +33,4 @@ define('TWITCH_REDIRECT_URI', 'https://instantscrapcarremoval.com/streamviewer/u
 // path to cert
 //https://curl.haxx.se/docs/caextract.html
 //define( 'PATH_TO_CERT', 'E:\xampp\htdocs\secret\cacert.pem' );
-// twitch creds
-// define('TWITCH_CLIENT_ID', '399qd8ffgdfizb97tn9aq5je3d94kc');
-// define('TWITCH_CLIENT_SECRET', 'zob9re2keo5sgongk66j06v1tpavhd');
-// define('TWITCH_REDIRECT_URI', 'http://streamviewer.digitalwebmark.com/login/user');
-
+ 
