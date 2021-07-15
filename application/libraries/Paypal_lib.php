@@ -53,7 +53,7 @@ class Paypal_lib
         $businessEmail = $this->CI->config->item('business'); 
         $this->add_field('business',$businessEmail); 
         $this->add_field('rm','2');    // Return method = POST 
-        $this->add_field('cmd','_xclick'); 
+        // $this->add_field('cmd','_xclick'); 
  
         $this->add_field('currency_code', $this->CI->config->item('paypal_lib_currency_code')); 
         $this->add_field('quantity', '1'); 

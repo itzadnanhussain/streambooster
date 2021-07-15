@@ -28,6 +28,7 @@ include_once APPPATH . 'third_party/paypal_subscription/dbConnect.php';
 
     <!-- Specify a subscriptions button. -->
     <input type="hidden" name="cmd" value="_xclick-subscriptions">
+    <!-- <input type="hidden" name="cmd" value="_cart"> -->
     <!-- Specify details about the subscription that buyers will purchase -->
     <input type="hidden" name="item_name" value="<?php echo $ranks[0]->name; ?>">
     <input type="hidden" name="item_number" value="<?php echo $ranks[0]->id; ?>">

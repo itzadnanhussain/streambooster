@@ -531,6 +531,7 @@ class Dashboard extends CI_Controller
             $title = 'Purchase Products Page';
             $page = "dashboard/paypalProducts";
             $data['ranks'] = getByWhere('ranks', '*', array('id' => $this->uri->segment(6)));
+            $data['rank_status'] = getByWhere('subscriptions','*',array('rank_id'=> $this->uri->segment(6) , 'user_id' => $_SESSION['user_info']['id']));
             ThemeView($page, $data, $title);
         }
     }

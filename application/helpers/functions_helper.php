@@ -12,7 +12,7 @@ if (!function_exists('ThemeView')) {
         updateLevel();
         ///topUsers
         $data['topUsers'] = getTopFiveUsers();
-        $data['newUsers'] = getNewUsers();  
+        $data['newUsers'] = getNewUsers();
         $thiz->load->view('templates/header', $title);
         $thiz->load->view($page, $data);
         $thiz->load->view('templates/footer');
@@ -22,38 +22,34 @@ if (!function_exists('ThemeView')) {
 
 
 
- ///updateLevel
- if (!function_exists('updateLevel')) {
-  function updateLevel()
-    {    if(isset( $_SESSION['user_info']['id'])){
-        $getrecords = array();
-        $getrecords = getByWhere('users', '*', array('id' => $_SESSION['user_info']['id']));
-        $coins = $getrecords[0]->coins;
-        $level = $getrecords[0]->level;
-        $watchCoins = $getrecords[0]->watching_coins;  //2000
-        $checkCoins=floor(intval( $watchCoins/500));  //2000/500=4
-        $bouns=500;
-            if($watchCoins==1000 && $level==1)
-            {
+///updateLevel
+if (!function_exists('updateLevel')) {
+    function updateLevel()
+    {
+        if (isset($_SESSION['user_info']['id'])) {
+            $getrecords = array();
+            $getrecords = getByWhere('users', '*', array('id' => $_SESSION['user_info']['id']));
+            $coins = $getrecords[0]->coins;
+            $level = $getrecords[0]->level;
+            $watchCoins = $getrecords[0]->watching_coins;  //2000
+            $checkCoins = floor(intval($watchCoins / 500));  //2000/500=4
+            $bouns = 500;
+            if ($watchCoins == 1000 && $level == 1) {
                 $coins = $coins + $bouns;
-                $level=$level+1;
-                updateByWhere('users', array('coins' => $coins ,'level' => $level , 'watching_coins'=> 0 ), array('id' => $_SESSION['user_info']['id'])); 
-            }
-        
-            elseif($watchCoins>1000 && $checkCoins>$level)
-            {
-               $bouns=500*intval($level);
+                $level = $level + 1;
+                updateByWhere('users', array('coins' => $coins, 'level' => $level, 'watching_coins' => 0), array('id' => $_SESSION['user_info']['id']));
+            } elseif ($watchCoins > 1000 && $checkCoins > $level) {
+                $bouns = 500 * intval($level);
                 $coins = $coins + $bouns;
-                $level=$level+1;
+                $level = $level + 1;
                 //$watchCoins=$watchCoins-$bouns;
-                updateByWhere('users', array('coins' => $coins ,'level' => $level  , 'watching_coins'=> 0 ), array('id' => $_SESSION['user_info']['id'])); 
+                updateByWhere('users', array('coins' => $coins, 'level' => $level, 'watching_coins' => 0), array('id' => $_SESSION['user_info']['id']));
             }
 
             //echo $bouns." ......  ".$coins.".......".$level ;
-             
-            $_SESSION['user_info']['level']= $level;
-            $_SESSION['user_info']['coins']=$coins;
-           
+
+            $_SESSION['user_info']['level'] = $level;
+            $_SESSION['user_info']['coins'] = $coins;
         }
     }
 }
@@ -123,7 +119,7 @@ if (!function_exists('getTopFiveUsers')) {
 if (!function_exists('getNewUsers')) {
     function getNewUsers()
     {
-        $getusers = getByWhere('users', '*', array(), array('id', 'DESC')); 
+        $getusers = getByWhere('users', '*', array(), array('id', 'DESC'));
         if (isset($getusers) && !empty($getusers)) {
             $listNewUsers = array();
             for ($i = 0; $i < count($getusers); $i++) {
@@ -141,16 +137,16 @@ if (!function_exists('PromoReactivationProcess')) {
     {
         $findData = getByWhere('promo', '*', array('user_id' => $_SESSION['user_info']['id']));
         if (isset($findData) && !empty($findData)) {
-            for ($i = 0; $i < count($findData); $i++) { 
+            for ($i = 0; $i < count($findData); $i++) {
 
                 if ($findData[$i]->promo_name == 'Displayed ON Follows Page') {
-                    updateByWhere('promo',array('status'=>'active'),array('promo_name'=>'Displayed ON Follows Page','user_id'=>$_SESSION['user_info']['id'])); 
+                    updateByWhere('promo', array('status' => 'active'), array('promo_name' => 'Displayed ON Follows Page', 'user_id' => $_SESSION['user_info']['id']));
                 }
-                
+
                 if ($findData[$i]->promo_name == 'Displayed ON Watch Page') {
 
                     $stream = GetActiveStreams($_SESSION['user_info']['twitch_user_id'], $_SESSION['user_info']['twitch_access_token']);
-                    
+
                     if (isset($stream) && !empty($stream)) {
                         $active_streamers = $stream->data;
                         if (isset($active_streamers) && !empty($active_streamers)) {
@@ -159,26 +155,34 @@ if (!function_exists('PromoReactivationProcess')) {
                                 if ($_SESSION['user_info']['coins'] >= 0 && $findData[$i]->coins <= $_SESSION['user_info']['coins']) {
                                     $total_coins = $_SESSION['user_info']['coins'] - $findData[$i]->coins;
                                     updateByWhere('users', array('coins' => $total_coins), array('id' => $_SESSION['user_info']['id']));
-                                    updateByWhere('promo',array('status'=>'active'),array('promo_name'=>'Displayed ON Watch Page','user_id'=>$_SESSION['user_info']['id'])); 
+                                    updateByWhere('promo', array('status' => 'active'), array('promo_name' => 'Displayed ON Watch Page', 'user_id' => $_SESSION['user_info']['id']));
 
                                     $_SESSION['user_info']['coins'] = $total_coins;
+                                } else {
+                                    deleteRecordWhere('promo', array('promo_name' => 'Displayed ON Watch Page', 'user_id' => $_SESSION['user_info']['id']));
                                 }
-                                else
-                                { 
-                                    deleteRecordWhere('promo', array('promo_name' => 'Displayed ON Watch Page', 'user_id' => $_SESSION['user_info']['id'])); 
-
-                                } 
-                            } 
-                        }  
+                            }
+                        }
+                    } else {
+                        deleteRecordWhere('promo', array('promo_name' => 'Displayed ON Watch Page', 'user_id' => $_SESSION['user_info']['id']));
                     }
-                    else
-                    {
-                        deleteRecordWhere('promo', array('promo_name' => 'Displayed ON Watch Page', 'user_id' => $_SESSION['user_info']['id'])); 
- 
-                    }
-
                 }
             }
+        }
+    }
+}
+
+
+///Checked_Rank
+if (!function_exists('Checked_Rank')) {
+    function Checked_Rank($rank_id)
+    {
+        $getrecords = getByWhere('subscriptions', '*', array('user_id' => $_SESSION['user_info']['id'], 'rank_id' => $rank_id));
+        
+        if (isset($getrecords) && !empty($getrecords)) {
+            return $getrecords[0]->subscription_status;
+        } else {
+            return 'inactive';
         }
     }
 }

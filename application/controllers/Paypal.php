@@ -20,30 +20,71 @@ class Paypal extends CI_Controller
     function success()
     {
 
-         ///post coins to database 
-         if ($_SESSION['paypal_rank_id'] == 1) {
+        ///post coins to database 
+        if ($_SESSION['payment_type'] == 'one_time') {
 
-            $check = updateByWhere('users', array('coins' => $_SESSION['user_info']['coins'] + $_SESSION['paypal_rank_coins']), array('id' => $_SESSION['user_info']['id']));
-            if ($check) {
-                $_SESSION['user_info']['coins'] = $_SESSION['user_info']['coins'] + $_SESSION['paypal_rank_coins'];
-                
-            }
-        } elseif ($_SESSION['paypal_rank_id']== 2) {
-            $check = updateByWhere('users', array('promoted_rank' => "Active"), array('id' => $_SESSION['user_info']['id']));
-            if ($check) {
-                $_SESSION['user_info']['promoted_rank'] = "Active"; 
-            }
-        } elseif ($_SESSION['paypal_rank_id'] == 3) {
-            $check = updateByWhere('users', array('double_coins' => "Active"), array('id' => $_SESSION['user_info']['id']));
-            if ($check) {
-                $_SESSION['user_info']['double_coins'] = "Active"; 
+
+            if ($_SESSION['paypal_rank_id'] == 1) {
+                $check = updateByWhere('users', array('coins' => $_SESSION['user_info']['coins'] + $_SESSION['paypal_rank_coins']), array('id' => $_SESSION['user_info']['id']));
+                if ($check) {
+                    $_SESSION['user_info']['coins'] = $_SESSION['user_info']['coins'] + $_SESSION['paypal_rank_coins'];
+                }
+            } elseif ($_SESSION['paypal_rank_id'] == 2) {
+                $check = updateByWhere('users', array('promoted_rank' => "Active"), array('id' => $_SESSION['user_info']['id']));
+                if ($check) {
+                    $_SESSION['user_info']['promoted_rank'] = "Active";
+                }
+            } elseif ($_SESSION['paypal_rank_id'] == 3) {
+                $check = updateByWhere('users', array('double_coins' => "Active"), array('id' => $_SESSION['user_info']['id']));
+                if ($check) {
+                    $_SESSION['user_info']['double_coins'] = "Active";
+                }
+            } else {
+                $check = updateByWhere('users', array('afk_varification' => "Active"), array('id' => $_SESSION['user_info']['id']));
+                if ($check) {
+                    $_SESSION['user_info']['afk_varification'] = "Active";
+                }
             }
         } else {
-            $check = updateByWhere('users', array('afk_varification' => "Active"), array('id' => $_SESSION['user_info']['id']));
-            if ($check) {
-                $_SESSION['user_info']['afk_varification'] = "Active"; 
+
+
+            $postData = array();
+            $postData['user_id'] = $_SESSION['user_info']['id'];
+            $postData['rank_id'] = $_SESSION['paypal_rank_id'];
+            $postData['subscription_limit'] = $_SESSION['month_limit'];
+            $postData['subscription_status'] = 'active';
+            $check_subscription = getByWhere('subscriptions', '*', array('rank_id' => $postData['rank_id']));
+            if ($check_subscription) {
+                $last_id = updateByWhere('subscriptions', $postData, array('rank_id' => $postData['rank_id']));
+            } else {
+                $last_id = addNew('subscriptions', $postData);
+            }  
+            
+            if ($last_id) {
+                if ($_SESSION['paypal_rank_id'] == 1) {
+                    ///update user coins and other data from user table
+                    $update_user = updateByWhere('users', array('coins' => $_SESSION['user_info']['coins'] + $_SESSION['paypal_rank_coins']), array('id' => $_SESSION['user_info']['id']));
+                    if ($update_user) {
+                        $_SESSION['user_info']['coins'] = $_SESSION['user_info']['coins'] + $_SESSION['paypal_rank_coins'];
+                    }
+                } elseif ($_SESSION['paypal_rank_id'] == 2) {
+                    $check = updateByWhere('users', array('promoted_rank' => "Active"), array('id' => $_SESSION['user_info']['id']));
+                    if ($check) {
+                        $_SESSION['user_info']['promoted_rank'] = "Active";
+                    }
+                } elseif ($_SESSION['paypal_rank_id'] == 3) {
+                    $check = updateByWhere('users', array('double_coins' => "Active"), array('id' => $_SESSION['user_info']['id']));
+                    if ($check) {
+                        $_SESSION['user_info']['double_coins'] = "Active";
+                    }
+                } else {
+                    $check = updateByWhere('users', array('afk_varification' => "Active"), array('id' => $_SESSION['user_info']['id']));
+                    if ($check) {
+                        $_SESSION['user_info']['afk_varification'] = "Active";
+                    }
+                }
             }
-        }  
+        }
 
         // Get the transaction data 
         $paypalInfo = $this->input->get();
@@ -66,8 +107,9 @@ class Paypal extends CI_Controller
 
         // Pass the transaction data to view 
         $data['product'] = $productData;
-      //  $data['payment'] = $paymentData;
+        //  $data['payment'] = $paymentData;
         $data['payment'] = $paypalInfo;
+        $_SESSION['payment_type'] = '';
         $this->load->view('paypal/success', $data);
     }
 
