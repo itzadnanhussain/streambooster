@@ -83,3 +83,10 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+
+
+
+// Test credential
+define('STRIPE_PUBLISHABLE_KEY', 'pk_test_bp0hgenwLtjlkLSGZCCZfaLy00qyh25x7r');
+define('STRIPE_SECRET_KEY', 'sk_test_b73hMjWizHrLSw6iS1EO6zqL00CxsUqewp');

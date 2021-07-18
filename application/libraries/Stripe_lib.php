@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Stripe Library for CodeIgniter 3.x
@@ -13,23 +13,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
  */
 
-class Stripe_lib{
-    var $CI;
+class Stripe_lib
+{
+	var $CI;
 	var $api_error;
-    
-    function __construct(){
+
+	function __construct()
+	{
 		$this->api_error = '';
-        $this->CI =& get_instance();
-        $this->CI->load->config('stripe');
-		
+		$this->CI = &get_instance();
+		$this->CI->load->config('stripe');
+
 		// Include the Stripe PHP bindings library
-		require APPPATH .'third_party/stripe-php/init.php';
-		
+		require APPPATH . 'third_party/stripe-php/init.php';
+
 		// Set API key
 		\Stripe\Stripe::setApiKey($this->CI->config->item('stripe_api_key'));
-    }
+	}
 
-    function addCustomer($email, $token){
+	function addCustomer($email, $token)
+	{
 		try {
 			// Add customer to stripe
 			$customer = \Stripe\Customer::create(array(
@@ -37,18 +40,20 @@ class Stripe_lib{
 				'source'  => $token
 			));
 			return $customer;
-		}catch(Exception $e) {
+		} catch (Exception $e) {
 			$this->api_error = $e->getMessage();
 			return false;
 		}
-    }
-	
-	function createCharge($customerId, $itemName, $itemPrice, $orderID){
-	
+	}
+
+	///for one time payment
+	function createCharge($customerId, $itemName, $itemPrice, $orderID)
+	{
+
 		// Convert price to cents
-		$itemPriceCents = ($itemPrice*100);
+		$itemPriceCents = ($itemPrice * 100);
 		$currency = $this->CI->config->item('stripe_currency');
-		
+
 		try {
 			// Charge a credit or a debit card
 			$charge = \Stripe\Charge::create(array(
@@ -60,13 +65,13 @@ class Stripe_lib{
 					'order_id' => $orderID
 				)
 			));
-			
+
 			// Retrieve charge details
 			$chargeJson = $charge->jsonSerialize();
 			return $chargeJson;
-		}catch(Exception $e) {
+		} catch (Exception $e) {
 			$this->api_error = $e->getMessage();
 			return false;
 		}
-    }
+	} 
 }

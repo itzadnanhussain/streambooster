@@ -1,9 +1,10 @@
-<!----Sec3 Content---> 
+<!----Sec3 Content--->
 <div class="container-fluid mt-15">
     <div class="row">
         <div class="col-md-3 col-xs-12">
             <?php $this->load->view('templates/sideBar') ?>
         </div>
+
         <div class="col-md-9 col-xs-12">
             <div class="content">
                 <div class="block">
@@ -11,7 +12,7 @@
                     <!---Invest Coins For Getting Top Streams On The List--->
                     <link rel="stylesheet" href="<?php echo base_url('assets/css/stripestyle.css') ?>">
                     <div class="row">
-                        <div class="col-md-6 offset-md-3">
+                        <div class="col-md-6 offset-md-3" id="one-time">
                             <div class="panel">
 
                                 <div class="panel-body">
@@ -49,7 +50,7 @@
                                         <?php } ?>
 
                                         <!---For Promoted Ranks--->
-                                        <?php if ($ranks[0]->id == 2) { ?> 
+                                        <?php if ($ranks[0]->id == 2) { ?>
                                             <div class="form-group">
                                                 <label for="">Total USD Charges</label>
                                                 <input type="text" class="charges form-control" value="<?php echo $ranks[0]->price ?>" disabled>
@@ -58,8 +59,8 @@
                                             </div>
                                         <?php } ?>
 
-                                         <!---For Double Coins--->
-                                         <?php if ($ranks[0]->id == 3) { ?> 
+                                        <!---For Double Coins--->
+                                        <?php if ($ranks[0]->id == 3) { ?>
                                             <div class="form-group">
                                                 <label for="">Total USD Charges</label>
                                                 <input type="text" class="charges form-control" value="<?php echo $ranks[0]->price ?>" disabled>
@@ -68,8 +69,8 @@
                                             </div>
                                         <?php } ?>
 
-                                          <!---For Double Coins--->
-                                          <?php if ($ranks[0]->id == 4) { ?> 
+                                        <!---For Double Coins--->
+                                        <?php if ($ranks[0]->id == 4) { ?>
                                             <div class="form-group">
                                                 <label for="">Total USD Charges</label>
                                                 <input type="text" class="charges form-control" value="<?php echo $ranks[0]->price ?>" disabled>
@@ -96,8 +97,16 @@
 
                                         </div>
                                         <button type="submit" class="btn btn-success" id="payBtn">Submit Payment</button>
+                                        <button type="button" class="btn btn-warning" style="margin-top:10px" id="testBtn" onclick="subscription()">Check Subscription Details</button>
                                     </form>
+                                    <script>
+                                        function subscription() {
+                                            $('#test').show();
+                                            $('#testBtn').hide();
+                                            $('#one-time').hide();
 
+                                        }
+                                    </script>
                                 </div>
 
                             </div>
@@ -111,8 +120,15 @@
 
             </div>
 
+            <!-- test code is here -->
+            <div class="content">
+                <div class="block">
+                    <div class="row">
+                        <?php $this->load->view('templates/subs_stripe') ?>
+                    </div>
+                </div>
+            </div>
         </div>
-
     </div>
 
 </div>

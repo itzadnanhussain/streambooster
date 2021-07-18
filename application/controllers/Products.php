@@ -66,7 +66,7 @@ class Products extends CI_Controller
             $_SESSION['payment_type'] = 'subscription';
             $_SESSION['month_limit'] = $p3;
             $this->paypal_lib->add_field('cmd', '_xclick-subscriptions');
-            $this->paypal_lib->add_field('a3', 1);
+            $this->paypal_lib->add_field('a3', $a3);
             $this->paypal_lib->add_field('p3', $p3);
             $this->paypal_lib->add_field('t3', $t3);
 

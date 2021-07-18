@@ -440,6 +440,8 @@ class Dashboard extends CI_Controller
             $title = 'Purchase Products Page';
             $page = "dashboard/getProducts";
             $data['ranks'] = getByWhere('ranks', '*', array('id' => $this->uri->segment(5)));
+            $data['rank_status'] = getByWhere('subscriptions','*',array('rank_id'=> $this->uri->segment(5) , 'user_id' => $_SESSION['user_info']['id'],'subscription_buy' => 'stripe'));
+            
             ThemeView($page, $data, $title);
         }
     }
@@ -524,14 +526,14 @@ class Dashboard extends CI_Controller
                 // }
             }
         } else {
-
-            
+ 
 
             //$this->load->library('stripe_lib');
             $title = 'Purchase Products Page';
             $page = "dashboard/paypalProducts";
             $data['ranks'] = getByWhere('ranks', '*', array('id' => $this->uri->segment(6)));
             $data['rank_status'] = getByWhere('subscriptions','*',array('rank_id'=> $this->uri->segment(6) , 'user_id' => $_SESSION['user_info']['id']));
+            
             ThemeView($page, $data, $title);
         }
     }
@@ -540,8 +542,7 @@ class Dashboard extends CI_Controller
     ///RankTransectionStatement
     public function RankTransectionStatement()
     {
-        $id = $this->uri->segment(5);
-
+        $id = $this->uri->segment(5); 
         $title = 'Payment Status Page';
         $page = "dashboard/paymentstatus";
         $data['ranks'] = getByWhere('ranks');
