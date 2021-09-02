@@ -53,8 +53,10 @@ class Paypal extends CI_Controller
             $postData['rank_id'] = $_SESSION['paypal_rank_id'];
             $postData['subscription_limit'] = $_SESSION['month_limit'];
             $postData['subscription_status'] = 'active';
-            $postData['subscription_status'] ='paypal';
+            $postData['subscription_buy'] ='paypal';
             $check_subscription = getByWhere('subscriptions', '*', array('rank_id' => $postData['rank_id'],'user_id'=> $_SESSION['user_info']['id']));
+            echo $this->db->last_query();
+            die;
             if ($check_subscription) {
                 $last_id = updateByWhere('subscriptions', $postData, array('rank_id' => $postData['rank_id'],'user_id'=> $_SESSION['user_info']['id']));
             } else {

@@ -25,6 +25,7 @@
 
                                         <!-- Specify a Subscribe button. -->
                                         <input type="hidden" name="cmd" value="_xclick-subscriptions">
+                                        <input type="hidden" name="back_url" value="<?php echo current_url(); ?>">
 
 
                                         <input type="hidden" name="rank_id" value="<?php echo (isset($ranks[0]->id) ? $ranks[0]->id : 0) ?>">
@@ -114,13 +115,11 @@
                                                     <option value="1" <?php echo (($rank_status[0]->subscription_limit == 1) ? 'selected' : '') ?>>1 Month</option>
                                                     <option value="3" <?php echo (($rank_status[0]->subscription_limit == 3) ? 'selected' : '') ?>>3 Month</option>
                                                     <option value="6" <?php echo (($rank_status[0]->subscription_limit == 6) ? 'selected' : '') ?>>6 Month</option>
-                                                    <option value="9" <?php echo (($rank_status[0]->subscription_limit == 9) ? 'selected' : '') ?>>9 Month</option>
-                                                    <option value="12" <?php echo (($rank_status[0]->subscription_limit == 12) ? 'selected' : '') ?>>12 Month</option>
+                                                     <option value="12" <?php echo (($rank_status[0]->subscription_limit == 12) ? 'selected' : '') ?>>12 Month</option>
                                                 <?php } else { ?>
                                                     <option value="1" selected="selected">1 Month</option>
                                                     <option value="3">3 Month</option>
-                                                    <option value="6">6 Month</option>
-                                                    <option value="9">9 Month</option>
+                                                    <option value="6">6 Month</option> 
                                                     <option value="12">12 Month</option>
                                                 <?php } ?>
                                             </select>

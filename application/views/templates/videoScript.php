@@ -6,6 +6,7 @@
     let coins = 0;
     let totalSeconds = 0;
     let intervalId = null;
+    const post_coins = '<?php echo  $_SESSION['user_info']['wtch_video_permin'] ?>';
 
     function StartEarning(status) {
 
@@ -54,18 +55,18 @@
         if (seconds == 59) {
             if (status == 'golden') {
                 <?php if (isset($_SESSION['user_info']['double_coins']) && ($_SESSION['user_info']['double_coins'] == 'Active')) { ?>
-                    PostCoins(30);
+                    PostCoins(2*post_coins);
                 <?php } else { ?>
-                    PostCoins(15);
+                    PostCoins(post_coins);
                 <?php } ?>
 
             }
 
             if (status == 'silver') {
                 <?php if (isset($_SESSION['user_info']['double_coins']) && ($_SESSION['user_info']['double_coins'] == 'Active')) { ?>
-                    PostCoins(9);
+                    PostCoins(2*post_coins);
                 <?php } else { ?>
-                    PostCoins(18);
+                    PostCoins(post_coins);
                 <?php } ?>
 
             }
@@ -76,18 +77,18 @@
         if (minute) {
             if (status == 'golden') {
                 <?php if (isset($_SESSION['user_info']['double_coins']) && ($_SESSION['user_info']['double_coins'] == 'Active')) { ?>
-                    coins = minute * 30;
+                    coins = minute * (2 * post_coins);
                 <?php } else { ?>
-                    coins = minute * 15;
+                    coins = minute * post_coins;
                 <?php } ?>
 
             }
 
             if (status == 'silver') {
                 <?php if (isset($_SESSION['user_info']['double_coins']) && ($_SESSION['user_info']['double_coins'] == 'Active')) { ?>
-                    coins = minute * 9;
-                <?php } else { ?>
-                    coins = minute * 18;
+                    coins = minute * (2 * post_coins);
+                    <?php } else { ?>
+                        coins = minute * post_coins;
                 <?php } ?>
 
             }
@@ -116,8 +117,7 @@
         <?php } ?>
 
     }
-
-
+ 
 
     ////Post Coins Into DataBase
     function PostCoins(coins) {
@@ -146,7 +146,7 @@
 
 
     ///rating form
-    $('.br-selected').click(function(e){
+    $('.br-selected').click(function(e) {
         alert('hy');
     })
 </script>

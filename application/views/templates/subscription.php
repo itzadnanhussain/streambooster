@@ -14,7 +14,7 @@ include_once APPPATH . 'third_party/paypal_subscription/dbConnect.php';
     <input type="hidden" name="business" value="<?php echo PAYPAL_ID; ?>">
     <input type="hidden" name="rank_id" value="<?php echo (isset($ranks[0]->id) ? $ranks[0]->id : 0) ?>">
     <input type="hidden" name="custom" value="<?php echo $_SESSION['user_info']['id'] ?>">
-
+    <input type="hidden" name="back_url" value="<?php echo current_url(); ?>">
     <div class="form-group">
         <label>Username</label>
         <input type="text" name="name" class="form-control" id="name" value="<?php echo $_SESSION['user_info']['username'] ?>" disabled>
@@ -34,7 +34,7 @@ include_once APPPATH . 'third_party/paypal_subscription/dbConnect.php';
     <input type="hidden" name="item_number" value="<?php echo $ranks[0]->id; ?>">
     <input type="hidden" name="currency_code" value="<?php echo PAYPAL_CURRENCY; ?>">
     <input type="hidden" name="a3" id="paypalAmt" value="<?php echo $ranks[0]->price ?>">
-    <input type="hidden" name="p3" id="paypalValid" value="1">
+    <input type="hidden" name="p3" id="paypalValid" value="1"> 
     <input type="hidden" name="t3" value="M">
       <!-- Specify urls -->
     <input type="hidden" name="cancel_return" value="<?php echo PAYPAL_CANCEL_URL; ?>">
@@ -48,8 +48,7 @@ include_once APPPATH . 'third_party/paypal_subscription/dbConnect.php';
         <select name="validity" onchange="getSubsPrice(this);">
             <option value="1" selected="selected">1 Month</option>
             <option value="3">3 Month</option>
-            <option value="6">6 Month</option>
-            <option value="9">9 Month</option>
+            <option value="6">6 Month</option> 
             <option value="12">12 Month</option>
         </select>
     </div>

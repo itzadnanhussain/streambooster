@@ -29,6 +29,7 @@ class Products extends CI_Controller
     {
 
         extract($_POST);
+       
 
 
         ///form data
@@ -75,11 +76,11 @@ class Products extends CI_Controller
             $postData['user_id'] = $_SESSION['user_info']['id'];
             $postData['rank_id'] = $_SESSION['paypal_rank_id'];
             $postData['subscription_limit'] = $_SESSION['month_limit'];
+            $postData['subscription_buy'] = 'paypal';
             $postData['subscription_status'] = 'active'; 
             $check_subscription = getByWhere('subscriptions', '*', $postData);
             if ($check_subscription) {
-                echo 'sorry already';
-                die;
+                redirect($back_url);
             }
 
         } else { 
